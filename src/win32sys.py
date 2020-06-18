@@ -2,6 +2,8 @@ import subprocess
 import sys
 import os
 
+assert sys.platform == 'win32', 'This application can be build and run on win32 platform only.'
+
 
 def run_as_system(*args, **kwargs):
     """
@@ -19,7 +21,7 @@ def run_as_system(*args, **kwargs):
     completed_args = [ps_exec, '-s', '-i']
     if os.system('where ' + args[0]) != 0:
         # not an executable
-        completed_args.extend(['cmd', '/k', 'cd', os.getcwd(), '&'])
+        completed_args.extend(['cmd', '/c', 'cd', os.getcwd(), '&'])
 
     completed_args.extend(args)
     return subprocess.call(completed_args, **kwargs)
